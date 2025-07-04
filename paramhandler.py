@@ -1,7 +1,7 @@
 import numpy as np
-from typing import Any, Tuple
+from typing import Any
 
-def get_nparrays(Q: Any, y: Any) -> Tuple[np.ndarray, np.ndarray]:
+def get_nparrays(Q: Any, y: Any) -> tuple[np.ndarray, np.ndarray]:
     """
     Ensures that the primary inputs Q and y are NumPy arrays.
 
@@ -13,7 +13,7 @@ def get_nparrays(Q: Any, y: Any) -> Tuple[np.ndarray, np.ndarray]:
         y (Any): The label vector, expected to be convertible to a 1D NumPy array.
 
     Returns:
-        Tuple[np.ndarray, np.ndarray]: A tuple containing Q and y as NumPy arrays.
+        tuple[np.ndarray, np.ndarray]: A tuple containing Q and y as NumPy arrays.
     
     Raises:
         TypeError: If Q or y cannot be converted to a NumPy array.
@@ -26,7 +26,7 @@ def get_nparrays(Q: Any, y: Any) -> Tuple[np.ndarray, np.ndarray]:
         raise TypeError(f"Inputs Q and y must be convertible to NumPy arrays. Error: {e}")
 
 
-def get_classes(y: np.ndarray, classes: np.ndarray | None = None) -> Tuple[np.ndarray, int]:
+def get_classes(y: np.ndarray, classes: np.ndarray | None = None) -> tuple[np.ndarray, int]:
     """
     Determines the unique class labels and the total number of classes.
 
@@ -39,7 +39,7 @@ def get_classes(y: np.ndarray, classes: np.ndarray | None = None) -> Tuple[np.nd
         classes (np.ndarray | None): An optional array of all unique class labels.
 
     Returns:
-        Tuple[np.ndarray, int]: A tuple containing the array of unique labels
+        tuple[np.ndarray, int]: A tuple containing the array of unique labels
                                 and the integer count of unique classes.
     """
     if classes is not None:
