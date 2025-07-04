@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Any
 
+
 def get_nparrays(Q: Any, y: Any) -> tuple[np.ndarray, np.ndarray]:
     """
     Ensures that the primary inputs Q and y are NumPy arrays.
@@ -14,7 +15,7 @@ def get_nparrays(Q: Any, y: Any) -> tuple[np.ndarray, np.ndarray]:
 
     Returns:
         tuple[np.ndarray, np.ndarray]: A tuple containing Q and y as NumPy arrays.
-    
+
     Raises:
         TypeError: If Q or y cannot be converted to a NumPy array.
     """
@@ -23,10 +24,14 @@ def get_nparrays(Q: Any, y: Any) -> tuple[np.ndarray, np.ndarray]:
         y_arr = np.asanyarray(y)
         return Q_arr, y_arr
     except (TypeError, ValueError) as e:
-        raise TypeError(f"Inputs Q and y must be convertible to NumPy arrays. Error: {e}")
+        raise TypeError(
+            f"Inputs Q and y must be convertible to NumPy arrays. Error: {e}"
+        )
 
 
-def get_classes(y: np.ndarray, classes: np.ndarray | None = None) -> tuple[np.ndarray, int]:
+def get_classes(
+    y: np.ndarray, classes: np.ndarray | None = None
+) -> tuple[np.ndarray, int]:
     """
     Determines the unique class labels and the total number of classes.
 
@@ -48,7 +53,7 @@ def get_classes(y: np.ndarray, classes: np.ndarray | None = None) -> tuple[np.nd
     else:
         unique_labels, _ = np.unique(y, return_inverse=True)
         n_classes = len(unique_labels)
-    
+
     return unique_labels, n_classes
 
 
@@ -79,11 +84,15 @@ def parcheck(
         raise TypeError(f"factor_h must be a float, but got {type(factor_h)}.")
     if not isinstance(factor_k, (float, int)):
         raise TypeError(f"factor_k must be a float, but got {type(factor_k)}.")
-    
+
     if not 0.0 <= factor_h <= 1.0:
-        raise ValueError(f"factor_h must be in the range [0.0, 1.0], but got {factor_h}.")
+        raise ValueError(
+            f"factor_h must be in the range [0.0, 1.0], but got {factor_h}."
+        )
     if not 0.0 <= factor_k <= 1.0:
-        raise ValueError(f"factor_k must be in the range [0.0, 1.0], but got {factor_k}.")
+        raise ValueError(
+            f"factor_k must be in the range [0.0, 1.0], but got {factor_k}."
+        )
 
     # 2. Convert Q and y to NumPy arrays for consistent checking
     Q_arr, y_arr = get_nparrays(Q, y)
@@ -101,7 +110,7 @@ def parcheck(
             f"The number of samples in Q ({n_samples}) does not match "
             f"the number of labels in y ({y_arr.shape[0]})."
         )
-        
+
     # 5. Check label data type
     if not np.issubdtype(y_arr.dtype, np.integer):
         raise TypeError(f"Labels in y must be integers, but found type {y_arr.dtype}.")
@@ -109,7 +118,7 @@ def parcheck(
     # 6. Check class consistency
     n_features_q = Q_arr.shape[1]
     _, n_classes_y = get_classes(y_arr, classes)
-    
+
     if n_features_q != n_classes_y:
         raise ValueError(
             f"The number of columns in Q ({n_features_q}) must match the "
